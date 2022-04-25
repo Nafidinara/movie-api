@@ -1,8 +1,8 @@
 FROM node:alpine
 
-RUN mkdir -p /usr/src/node-app && chown -R node:node /usr/src/node-app
+RUN mkdir -p /usr/src/api-netara && chown -R node:node /usr/src/api-netara
 
-WORKDIR /usr/src/node-app
+WORKDIR /usr/src/api-netara
 
 COPY package.json yarn.lock ./
 
@@ -12,4 +12,5 @@ RUN yarn install --pure-lockfile
 
 COPY --chown=node:node . .
 
-EXPOSE 3000
+#EXPOSE 3000
+EXPOSE 8078
