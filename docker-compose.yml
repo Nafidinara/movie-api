@@ -1,22 +1,23 @@
 version: '3'
 
 services:
-  node-app:
-    build: .
-    image: node-app
+  api-netara:
+    container_name: api-netara
+    image: nginx:latest
     environment:
       - MONGODB_URL=mongodb://mongodb:27017/keclin-netara
     ports:
-      - '3000:3000'
+      - 10100:8078
     depends_on:
-      - mongodb
+      - mongo-netara
     volumes:
-      - .:/usr/src/node-app
+      - .:/usr/src/api-netara
     networks:
       - node-network
 
-  mongodb:
-    image: mongo:4.2.1-bionic
+  mongo-netara:
+    container_name: mongo-netara
+    image: mongo:4.4.13
     ports:
       - '27017:27017'
     volumes:
