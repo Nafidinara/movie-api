@@ -1,9 +1,7 @@
 const express = require('express');
 const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
-const groupRoute = require('./group.route');
 const woodRoute = require('./wood.route');
-const historyRoute = require('./history.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 
