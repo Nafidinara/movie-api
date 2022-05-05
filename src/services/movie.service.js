@@ -1,19 +1,19 @@
 const httpStatus = require('http-status');
-const { Wood } = require('../models');
+const { Movie } = require('../models');
 const ApiError = require('../utils/ApiError');
 const logger = require('./../config/logger');
 
 /**
- * Create a wood
- * @param {Object} woodBody
- * @returns {Promise<Wood>}
+ * Create a movie
+ * @param {Object} movieBody
+ * @returns {Promise<Movie>}
  */
-const createWood = async (woodBody) => {
-  return Wood.create(woodBody);
+const createMovie = async (movieBody) => {
+  return Movie.create(movieBody);
 };
 
 /**
- * Query for woods
+ * Query for movies
  * @param {Object} filter - Mongo filter
  * @param {Object} options - Query options
  * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
@@ -21,12 +21,12 @@ const createWood = async (woodBody) => {
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
-const queryWoods = async (filter, options) => {
-  return Wood.paginate(filter, options);
+const queryMovies = async (filter, options) => {
+  return Movie.paginate(filter, options);
 };
 
 // /**
-//  * Query for woods
+//  * Query for movies
 //  * @param {Object} filter - Mongo filter
 //  * @param {Object} options - Query options
 //  * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
@@ -40,49 +40,49 @@ const queryWoods = async (filter, options) => {
 //     queryFilter[key] = {$in: filter[key]};
 //   }
 //   logger.debug(JSON.stringify(queryFilter));
-//   return Wood.find(queryFilter, options);
+//   return Movie.find(queryFilter, options);
 // };
 
 /**
- * Get wood by id
+ * Get movie by id
  * @param {ObjectId} id
- * @returns {Promise<Wood>}
+ * @returns {Promise<Movie>}
  */
-const getWoodById = async (id) => {
-  return Wood.findById(id);
+const getMovieById = async (id) => {
+  return Movie.findById(id);
 };
 
 /**
- * Update wood by id
- * @param {ObjectId} woodId
+ * Update movie by id
+ * @param {ObjectId} movieId
  * @param {Object} updateBody
- * @returns {Promise<Wood>}
+ * @returns {Promise<Movie>}
  */
-const updateWoodById = async (woodId, updateBody) => {
-  const wood = await getWoodById(woodId);
-  if (!wood) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Wood not found');
+const updateMovieById = async (movieId, updateBody) => {
+  const movie = await getMovieById(movieId);
+  if (!movie) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Movie not found');
   }
-  Object.assign(wood, updateBody);
-  await wood.save();
-  return wood;
+  Object.assign(movie, updateBody);
+  await movie.save();
+  return movie;
 };
 
 /**
- * Delete wood by id
- * @param {ObjectId} woodId
- * @returns {Promise<Wood>}
+ * Delete movie by id
+ * @param {ObjectId} movieId
+ * @returns {Promise<Movie>}
  */
-const deleteWoodById = async (woodId) => {
-  const wood = await getWoodById(woodId);
-  await wood.remove();
-  return wood;
+const deleteMovieById = async (movieId) => {
+  const movie = await getMovieById(movieId);
+  await movie.remove();
+  return movie;
 };
 
 module.exports = {
-  createWood,
-  queryWoods,
-  getWoodById,
-  updateWoodById,
-  deleteWoodById,
+  createMovie,
+  queryMovies,
+  getMovieById,
+  updateMovieById,
+  deleteMovieById,
 };

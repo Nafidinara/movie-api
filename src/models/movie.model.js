@@ -1,29 +1,29 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const woodSchema = mongoose.Schema(
+const movieSchema = mongoose.Schema(
   {
-    diameter: {
+    title: {
       type: String,
       required: false
     },
-    panjang: {
+    synopsis: {
       type: String,
       required: false
     },
-    kubikasi: {
+    director: {
       type: String,
       required: false
     },
-    jml_batang: {
+    cast : {
+      type: Array,
+      required: false
+    },
+    rating: {
       type: String,
       required: false
     },
-    volume: {
-      type: String,
-      required: false
-    },
-    jumlah: {
+    image_link: {
       type: String,
       required: false
     }
@@ -34,12 +34,12 @@ const woodSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-woodSchema.plugin(toJSON);
-woodSchema.plugin(paginate);
+movieSchema.plugin(toJSON);
+movieSchema.plugin(paginate);
 
 /**
- * @typedef Wood
+ * @typedef Movie
  */
-const Wood = mongoose.model('Wood', woodSchema);
+const Movie = mongoose.model('Movie', movieSchema);
 
-module.exports = Wood;
+module.exports = Movie;

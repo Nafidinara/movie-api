@@ -4,7 +4,7 @@ const config = require('../config/config');
 const swaggerDef = {
   openapi: '3.0.0',
   info: {
-    title: 'Netara Kecilin API',
+    title: 'Movie API',
     version,
     license: {
       name: 'MIT',
@@ -13,7 +13,7 @@ const swaggerDef = {
   },
   servers: [
     {
-      url: `http://localhost:${config.port}/netara/api/v1`,
+      url: `http://localhost:${config.port}/movie/api/v1`,
     },
   ],
 };

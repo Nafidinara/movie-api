@@ -52,18 +52,18 @@ passport.use('jwt', jwtStrategy);
 
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
-  app.use('/kayu/api/v1/auth', authLimiter);
+  app.use('/movie/api/v1/auth', authLimiter);
 }
 
-app.get('/kayu/api/v1', (req,res) => {
+app.get('/movie/api/v1', (req,res) => {
   return res.status(httpStatus.OK).send({
     status : 'OK',
-    msg : 'Welcome to Kayu Api, Dev by Alfara'
+    msg : 'Welcome to movie Api, Dev by Alfara'
   });
 });
 
 // v1 api routes
-app.use('/kayu/api/v1', routes);
+app.use('/movie/api/v1', routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {

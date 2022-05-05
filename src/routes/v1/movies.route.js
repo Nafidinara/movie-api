@@ -1,46 +1,46 @@
 const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
-const woodValidation = require('../../validations/wood.validation');
-const woodController = require('../../controllers/wood.controller');
+const movieValidation = require('../../validations/movie.validation');
+const movieController = require('../../controllers/movie.controller');
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(auth('manageWoods'), validate(woodValidation.createWood), woodController.createWood)
-  .get(auth('getWoods'), validate(woodValidation.getWoods), woodController.getWoods)
+  .post(auth('manageMovies'), validate(movieValidation.createMovie), movieController.createMovie)
+  .get(auth('getMovies'), validate(movieValidation.getMovies), movieController.getMovies)
 
 router
   .route('/total')
-  .get(auth('getWoods'), validate(woodValidation.getTotalWood), woodController.getTotalWood);
+  .get(auth('getMovies'), validate(movieValidation.getTotalMovie), movieController.getTotalMovie);
 
 // router
 //   .route('/search')
-//   .post(auth('getWoods'), validate(woodValidation.getSearchWood), woodController.getSearchWood);
+//   .post(auth('getMovies'), validate(movieValidation.getSearchMovie), movieController.getSearchMovie);
 
 router
-  .route('/:woodId')
-  .get(auth('getWoods'), validate(woodValidation.getWood), woodController.getWood)
-  .put(auth('manageWoods'), validate(woodValidation.updateWood), woodController.updateWood)
-  .delete(auth('manageWoods'), validate(woodValidation.deleteWood), woodController.deleteWood);
+  .route('/:movieId')
+  .get(auth('getMovies'), validate(movieValidation.getMovie), movieController.getMovie)
+  .put(auth('manageMovies'), validate(movieValidation.updateMovie), movieController.updateMovie)
+  .delete(auth('manageMovies'), validate(movieValidation.deleteMovie), movieController.deleteMovie);
 
 module.exports = router;
 
 /**
  * @swagger
  * tags:
- *   name: Woods
- *   description: Wood management and retrieval
+ *   name: Movies
+ *   description: Movie management and retrieval
  */
 
 /**
  * @swagger
- * /woods:
+ * /movies:
  *   post:
- *     summary: Create a wood
- *     description: Only admins can create other woods.
- *     tags: [Woods]
+ *     summary: Create a movie
+ *     description: Only admins can create other movies.
+ *     tags: [Movies]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -67,7 +67,7 @@ module.exports = router;
  *                 description: At least one number and one letter
  *               role:
  *                  type: string
- *                  enum: [wood, admin]
+ *                  enum: [movie, admin]
  *             example:
  *               name: fake name
  *               email: fake@example.com
@@ -78,7 +78,7 @@ module.exports = router;
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/Wood'
+ *                $ref: '#/components/schemas/Movie'
  *       "400":
  *         $ref: '#/components/responses/DuplicateEmail'
  *       "401":
@@ -87,9 +87,9 @@ module.exports = router;
  *         $ref: '#/components/responses/Forbidden'
  *
  *   get:
- *     summary: Get all woods
- *     description: get all woods with some query params.
- *     tags: [Woods]
+ *     summary: Get all movies
+ *     description: get all movies with some query params.
+ *     tags: [Movies]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -97,7 +97,7 @@ module.exports = router;
  *         name: name
  *         schema:
  *           type: string
- *         description: Wood name
+ *         description: Movie name
  *       - in: query
  *         name: sortBy
  *         schema:
@@ -109,7 +109,7 @@ module.exports = router;
  *           type: integer
  *           minimum: 1
  *         default: 10
- *         description: Maximum number of woods
+ *         description: Maximum number of movies
  *       - in: query
  *         name: page
  *         schema:
@@ -128,7 +128,7 @@ module.exports = router;
  *                 results:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Wood'
+ *                     $ref: '#/components/schemas/Movie'
  *                 page:
  *                   type: integer
  *                   example: 1
@@ -149,11 +149,11 @@ module.exports = router;
 
 /**
  * @swagger
- * /woods/{id}:
+ * /movies/{id}:
  *   get:
- *     summary: Get a wood
- *     description: Logged in woods can fetch only their own wood information.
- *     tags: [Woods]
+ *     summary: Get a movie
+ *     description: Logged in movies can fetch only their own movie information.
+ *     tags: [Movies]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -162,14 +162,14 @@ module.exports = router;
  *         required: true
  *         schema:
  *           type: string
- *         description: Wood id
+ *         description: Movie id
  *     responses:
  *       "200":
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/Wood'
+ *                $ref: '#/components/schemas/Movie'
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
@@ -178,9 +178,9 @@ module.exports = router;
  *         $ref: '#/components/responses/NotFound'
  *
  *   patch:
- *     summary: Update a wood
- *     description: Logged in woods can only update their own information.
- *     tags: [Woods]
+ *     summary: Update a movie
+ *     description: Logged in movies can only update their own information.
+ *     tags: [Movies]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -189,7 +189,7 @@ module.exports = router;
  *         required: true
  *         schema:
  *           type: string
- *         description: Wood id
+ *         description: Movie id
  *     requestBody:
  *       required: true
  *       content:
@@ -218,7 +218,7 @@ module.exports = router;
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/Wood'
+ *                $ref: '#/components/schemas/Movie'
  *       "400":
  *         $ref: '#/components/responses/DuplicateEmail'
  *       "401":
@@ -229,9 +229,9 @@ module.exports = router;
  *         $ref: '#/components/responses/NotFound'
  *
  *   delete:
- *     summary: Delete a wood
- *     description: Logged in woods can delete only themselves.
- *     tags: [Woods]
+ *     summary: Delete a movie
+ *     description: Logged in movies can delete only themselves.
+ *     tags: [Movies]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -240,7 +240,7 @@ module.exports = router;
  *         required: true
  *         schema:
  *           type: string
- *         description: Wood id
+ *         description: Movie id
  *     responses:
  *       "200":
  *         description: No content

@@ -59,8 +59,8 @@ module.exports = router;
  *                 minLength: 8
  *                 description: At least one number and one letter
  *             example:
- *               name: kecilin-user
- *               email: kecilinuser@example.com
+ *               name: test-user
+ *               email: testuser@example.com
  *               password: password123
  *               status: false
  *               rtmp: rtmp://fms.105.net/live/rmc1
@@ -103,7 +103,7 @@ module.exports = router;
  *                 type: string
  *                 format: password
  *             example:
- *               email: kecilinuser@example.com
+ *               email: testuser@example.com
  *               password: password123
  *     responses:
  *       "200":
